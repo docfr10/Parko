@@ -63,10 +63,12 @@ fun AppScreen(navController: NavHostController = rememberNavController()) {
                             Text(text = "Park Your Car")
                         }
 
-                        Image(
-                            imageVector = Icons.Default.Notifications,
-                            contentDescription = "Notifications"
-                        )
+                        IconButton(onClick = { navController.navigate(route = "NotificationScreen") }) {
+                            Image(
+                                imageVector = Icons.Default.Notifications,
+                                contentDescription = "Notifications"
+                            )
+                        }
                     }
                 }
             )
@@ -83,6 +85,9 @@ fun AppScreen(navController: NavHostController = rememberNavController()) {
                 }
                 composable(route = "ProfileScreen") {
                     ProfileScreen()
+                }
+                composable(route = "NotificationScreen") {
+                    NotificationScreen()
                 }
             }
         }
