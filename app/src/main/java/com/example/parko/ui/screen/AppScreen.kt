@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -44,28 +45,28 @@ fun AppScreen(navController: NavHostController = rememberNavController()) {
                     titleContentColor = MaterialTheme.colorScheme.onBackground,
                 ),
                 title = {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .wrapContentHeight(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        IconButton(onClick = { navController.navigate(route = "ProfileScreen") }) {
                             Image(
                                 imageVector = Icons.Default.Person,
                                 contentDescription = "User photo"
                             )
-
-                            Column {
-                                Text(text = "Hello USERNAME!")
-                                Text(text = "Park Your Car")
-                            }
-
-                            Image(
-                                imageVector = Icons.Default.Notifications,
-                                contentDescription = "Notifications"
-                            )
                         }
+
+                        Column {
+                            Text(text = "Hello USERNAME!")
+                            Text(text = "Park Your Car")
+                        }
+
+                        Image(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = "Notifications"
+                        )
                     }
                 }
             )
@@ -79,6 +80,9 @@ fun AppScreen(navController: NavHostController = rememberNavController()) {
             navigation(startDestination = "HomeScreen", route = "AppScreen") {
                 composable(route = "HomeScreen") {
                     HomeScreen()
+                }
+                composable(route = "ProfileScreen") {
+                    ProfileScreen()
                 }
             }
         }
