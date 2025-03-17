@@ -26,8 +26,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
+import com.example.parko.utils.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,25 +91,27 @@ fun AppScreen() {
         NavHost(
             modifier = Modifier.padding(paddingValues = paddingValues),
             navController = navController,
-            startDestination = "AppScreen"
+            startDestination = Routes.SEPARATED_SCREENS
         ) {
-            navigation(startDestination = "SplashScreen", route = "AppScreen") {
-                composable(route = "SplashScreen") {
+            navigation(startDestination = Routes.SPLASH_SCREEN, route = Routes.SEPARATED_SCREENS) {
+                composable(route = Routes.SPLASH_SCREEN) {
                     SplashScreen(navController = navController)
                 }
-                composable(route = "AuthenticationScreen") {
+                composable(route = Routes.AUTHENTICATION_SCREEN) {
                     AuthenticationScreen(navController = navController)
                 }
-                composable(route = "RegistrationScreen") {
+                composable(route = Routes.REGISTRATION_SCREEN) {
                     RegistrationScreen(navController = navController)
                 }
-                composable(route = "HomeScreen") {
+            }
+            navigation(startDestination = Routes.HOME_SCREEN, route = Routes.APP_SCREENS) {
+                composable(route = Routes.HOME_SCREEN) {
                     HomeScreen()
                 }
-                composable(route = "ProfileScreen") {
+                composable(route = Routes.PROFILE_SCREEN) {
                     ProfileScreen()
                 }
-                composable(route = "NotificationScreen") {
+                composable(route = Routes.NOTIFICATION_SCREEN) {
                     NotificationScreen()
                 }
             }

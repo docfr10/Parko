@@ -68,120 +68,120 @@ fun RegistrationScreen(navController: NavHostController) {
                 }
                 Text(text = "Registration")
             }
-        },
-        content = { padding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .background(MaterialTheme.colorScheme.background)
-                    .imePadding(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                // OutlinedTextField to type the Email
-                OutlinedTextField(
-                    value = email.value,
-                    onValueChange = { email.value = it },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 5.dp, end = 5.dp)
-                        .background(MaterialTheme.colorScheme.background)
-                        .onFocusEvent {
-                            if (it.isFocused)
-                                coroutineScope.launch { bringIntoViewRequester.bringIntoView() }
-                        },
-                    label = { Text(text = "Email") },
-                    placeholder = {
-                        Text(
-                            text = "example@domain.com",
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                    },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Email,
-                        imeAction = ImeAction.Next
-                    )
-                )
-                // OutlinedTextField to type the password
-                OutlinedTextField(
-                    value = password.value,
-                    onValueChange = { password.value = it },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 5.dp, end = 5.dp)
-                        .background(MaterialTheme.colorScheme.background)
-                        .onFocusEvent {
-                            if (it.isFocused)
-                                coroutineScope.launch { bringIntoViewRequester.bringIntoView() }
-                        },
-                    label = { Text(text = "Password") },
-                    visualTransformation = PasswordVisualTransformation(),
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Next
-                    )
-                )
-                // OutlinedTextField to type the surname
-                OutlinedTextField(
-                    value = surname.value,
-                    onValueChange = { surname.value = it },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 5.dp, end = 5.dp)
-                        .background(MaterialTheme.colorScheme.background)
-                        .onFocusEvent {
-                            if (it.isFocused)
-                                coroutineScope.launch { bringIntoViewRequester.bringIntoView() }
-                        },
-                    label = { Text(text = "Surname") },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Next
-                    )
-                )
-                // OutlinedTextField to type the name
-                OutlinedTextField(
-                    value = name.value,
-                    onValueChange = { name.value = it },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 5.dp, end = 5.dp)
-                        .background(MaterialTheme.colorScheme.background)
-                        .onFocusEvent {
-                            if (it.isFocused)
-                                coroutineScope.launch { bringIntoViewRequester.bringIntoView() }
-                        },
-                    label = { Text(text = "Name") },
-                    singleLine = true,
-                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Done
-                    )
-                )
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp)
-                    .imePadding(),
-                verticalArrangement = Arrangement.Bottom
-            ) {
-                // Confirm button
-                Button(
-                    onClick = {},
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = MaterialTheme.shapes.extraLarge
-                ) {
-                    Text(text = "Confirm")
-                }
-            }
         }
     )
+    { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .background(MaterialTheme.colorScheme.background)
+                .imePadding(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            // OutlinedTextField to type the Email
+            OutlinedTextField(
+                value = email.value,
+                onValueChange = { email.value = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 5.dp, end = 5.dp)
+                    .background(MaterialTheme.colorScheme.background)
+                    .onFocusEvent {
+                        if (it.isFocused)
+                            coroutineScope.launch { bringIntoViewRequester.bringIntoView() }
+                    },
+                label = { Text(text = "Email") },
+                placeholder = {
+                    Text(
+                        text = "example@domain.com",
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Email,
+                    imeAction = ImeAction.Next
+                )
+            )
+            // OutlinedTextField to type the password
+            OutlinedTextField(
+                value = password.value,
+                onValueChange = { password.value = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 5.dp, end = 5.dp)
+                    .background(MaterialTheme.colorScheme.background)
+                    .onFocusEvent {
+                        if (it.isFocused)
+                            coroutineScope.launch { bringIntoViewRequester.bringIntoView() }
+                    },
+                label = { Text(text = "Password") },
+                visualTransformation = PasswordVisualTransformation(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Next
+                )
+            )
+            // OutlinedTextField to type the surname
+            OutlinedTextField(
+                value = surname.value,
+                onValueChange = { surname.value = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 5.dp, end = 5.dp)
+                    .background(MaterialTheme.colorScheme.background)
+                    .onFocusEvent {
+                        if (it.isFocused)
+                            coroutineScope.launch { bringIntoViewRequester.bringIntoView() }
+                    },
+                label = { Text(text = "Surname") },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            )
+            // OutlinedTextField to type the name
+            OutlinedTextField(
+                value = name.value,
+                onValueChange = { name.value = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 5.dp, end = 5.dp)
+                    .background(MaterialTheme.colorScheme.background)
+                    .onFocusEvent {
+                        if (it.isFocused)
+                            coroutineScope.launch { bringIntoViewRequester.bringIntoView() }
+                    },
+                label = { Text(text = "Name") },
+                singleLine = true,
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Done
+                )
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp)
+                .imePadding(),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            // Confirm button
+            Button(
+                onClick = {},
+                modifier = Modifier.fillMaxWidth(),
+                shape = MaterialTheme.shapes.extraLarge
+            ) {
+                Text(text = "Confirm")
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
