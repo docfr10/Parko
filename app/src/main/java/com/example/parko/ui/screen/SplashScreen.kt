@@ -33,7 +33,7 @@ fun SplashScreen(navController: NavHostController) {
         startAnimation.value = true
         delay(timeMillis = 4000)
         navController.popBackStack()
-        navController.navigate("RegistrationScreen")
+        navController.navigate("AuthenticationScreen")
     }
     SplashScreenAnimation(alphaAnim = alphaAnim.value)
 }

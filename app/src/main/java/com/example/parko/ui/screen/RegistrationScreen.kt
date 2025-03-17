@@ -56,7 +56,7 @@ fun RegistrationScreen(navController: NavHostController) {
             ) {
                 IconButton(onClick = {
                     navController.popBackStack()
-                    navController.navigate("HomeScreen")
+                    navController.navigate("AuthenticationScreen")
                 }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
