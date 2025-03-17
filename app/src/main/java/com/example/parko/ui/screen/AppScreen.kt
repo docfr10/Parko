@@ -25,55 +25,61 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview(showBackground = true)
-fun AppScreen(navController: NavHostController = rememberNavController()) {
+fun AppScreen() {
+    val navController: NavHostController = rememberNavController()
+    val navBackStackEntry = navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry.value?.destination?.route
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .padding(all = 16.dp),
         topBar = {
-            TopAppBar(
-                modifier = Modifier.fillMaxWidth(),
-                colors = TopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    scrolledContainerColor = MaterialTheme.colorScheme.background,
-                    actionIconContentColor = MaterialTheme.colorScheme.onBackground,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onBackground,
-                    titleContentColor = MaterialTheme.colorScheme.onBackground,
-                ),
-                title = {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentHeight(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        IconButton(onClick = { navController.navigate(route = "ProfileScreen") }) {
-                            Image(
-                                imageVector = Icons.Default.Person,
-                                contentDescription = "User photo"
-                            )
-                        }
+            if (currentRoute != "SplashScreen")
+                TopAppBar(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = TopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.background,
+                        scrolledContainerColor = MaterialTheme.colorScheme.background,
+                        actionIconContentColor = MaterialTheme.colorScheme.onBackground,
+                        navigationIconContentColor = MaterialTheme.colorScheme.onBackground,
+                        titleContentColor = MaterialTheme.colorScheme.onBackground,
+                    ),
+                    title = {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            IconButton(onClick = { navController.navigate(route = "ProfileScreen") }) {
+                                Image(
+                                    imageVector = Icons.Default.Person,
+                                    contentDescription = "User photo"
+                                )
+                            }
 
-                        Column {
-                            Text(text = "Hello USERNAME!")
-                            Text(text = "Park Your Car")
-                        }
+                            Column {
+                                Text(text = "Hello USERNAME!")
+                                Text(text = "Park Your Car")
+                            }
 
-                        IconButton(onClick = { navController.navigate(route = "NotificationScreen") }) {
-                            Image(
-                                imageVector = Icons.Default.Notifications,
-                                contentDescription = "Notifications"
-                            )
+                            IconButton(onClick = { navController.navigate(route = "NotificationScreen") }) {
+                                Image(
+                                    imageVector = Icons.Default.Notifications,
+                                    contentDescription = "Notifications"
+                                )
+                            }
                         }
                     }
-                }
-            )
+                )
         }
     ) { paddingValues ->
         NavHost(
@@ -81,7 +87,10 @@ fun AppScreen(navController: NavHostController = rememberNavController()) {
             navController = navController,
             startDestination = "AppScreen"
         ) {
-            navigation(startDestination = "HomeScreen", route = "AppScreen") {
+            navigation(startDestination = "SplashScreen", route = "AppScreen") {
+                composable(route = "SplashScreen") {
+                    SplashScreen(navController = navController)
+                }
                 composable(route = "HomeScreen") {
                     HomeScreen()
                 }
