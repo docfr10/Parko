@@ -1,4 +1,4 @@
-package com.example.parko.ui.screen
+package com.example.parko.ui.screen.app
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

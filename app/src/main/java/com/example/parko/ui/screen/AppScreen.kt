@@ -28,6 +28,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.example.parko.ui.screen.app.HomeScreen
+import com.example.parko.ui.screen.app.NotificationScreen
+import com.example.parko.ui.screen.app.ProfileScreen
+import com.example.parko.ui.screen.separate.AuthenticationScreen
+import com.example.parko.ui.screen.separate.RegistrationScreen
+import com.example.parko.ui.screen.separate.SplashScreen
 import com.example.parko.utils.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)

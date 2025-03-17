@@ -1,4 +1,4 @@
-package com.example.parko.ui.screen
+package com.example.parko.ui.screen.separate
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background

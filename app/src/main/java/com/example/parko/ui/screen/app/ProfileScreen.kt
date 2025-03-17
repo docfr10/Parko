@@ -1,4 +1,4 @@
-package com.example.parko.ui.screen
+package com.example.parko.ui.screen.app
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
