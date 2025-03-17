@@ -42,7 +42,7 @@ fun AppScreen() {
             .fillMaxSize()
             .padding(all = 16.dp),
         topBar = {
-            if (currentRoute != "SplashScreen")
+            if (currentRoute !in listOf("SplashScreen", "RegistrationScreen"))
                 TopAppBar(
                     modifier = Modifier.fillMaxWidth(),
                     colors = TopAppBarColors(
@@ -90,6 +90,9 @@ fun AppScreen() {
             navigation(startDestination = "SplashScreen", route = "AppScreen") {
                 composable(route = "SplashScreen") {
                     SplashScreen(navController = navController)
+                }
+                composable(route = "RegistrationScreen") {
+                    RegistrationScreen(navController = navController)
                 }
                 composable(route = "HomeScreen") {
                     HomeScreen()
