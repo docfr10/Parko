@@ -48,7 +48,9 @@ fun AppScreen(authenticationViewModel: AuthenticationViewModel) {
             .fillMaxSize()
             .padding(all = 16.dp), topBar = {
             if (currentRoute !in listOf(
-                    "SplashScreen", "AuthenticationScreen", "RegistrationScreen"
+                    Routes.SPLASH_SCREEN,
+                    Routes.AUTHENTICATION_SCREEN,
+                    Routes.REGISTRATION_SCREEN
                 )
             ) TopAppBar(
                 modifier = Modifier.fillMaxWidth(), colors = TopAppBarColors(
@@ -64,7 +66,7 @@ fun AppScreen(authenticationViewModel: AuthenticationViewModel) {
                             .wrapContentHeight(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        IconButton(onClick = { navController.navigate(route = "ProfileScreen") }) {
+                        IconButton(onClick = { navController.navigate(route = Routes.PROFILE_SCREEN) }) {
                             Image(
                                 imageVector = Icons.Default.Person,
                                 contentDescription = "User photo"
@@ -76,7 +78,7 @@ fun AppScreen(authenticationViewModel: AuthenticationViewModel) {
                             Text(text = "Park Your Car")
                         }
 
-                        IconButton(onClick = { navController.navigate(route = "NotificationScreen") }) {
+                        IconButton(onClick = { navController.navigate(route = Routes.NOTIFICATION_SCREEN) }) {
                             Image(
                                 imageVector = Icons.Default.Notifications,
                                 contentDescription = "Notifications"

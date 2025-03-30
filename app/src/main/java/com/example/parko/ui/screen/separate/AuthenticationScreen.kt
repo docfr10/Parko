@@ -35,6 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.parko.model.requests.LoginRequest
+import com.example.parko.utils.Routes
 import com.example.parko.viewmodel.AuthenticationViewModel
 import kotlinx.coroutines.launch
 
@@ -122,9 +123,9 @@ fun AuthenticationScreen(
                                 password = password.value,
                                 isActivate = true
                             )
-                        ).success
-                    ) navController.navigate("HomeScreen") {
-                        popUpTo("AuthenticationScreen") { inclusive = true }
+                        )
+                    ) navController.navigate(Routes.HOME_SCREEN) {
+                        popUpTo(Routes.AUTHENTICATION_SCREEN) { inclusive = true }
                     }
                 }
             },
@@ -143,7 +144,7 @@ fun AuthenticationScreen(
     ) {
         // Registration button
         Button(
-            onClick = { navController.navigate("RegistrationScreen") },
+            onClick = { navController.navigate(Routes.REGISTRATION_SCREEN) },
             modifier = Modifier.fillMaxWidth(),
             shape = MaterialTheme.shapes.extraLarge
         ) { Text(text = "Registered") }

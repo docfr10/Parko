@@ -17,14 +17,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
+import com.example.parko.utils.Routes
+import com.example.parko.utils.TokenManager
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavHostController) {
+    val tokenManager = TokenManager(LocalContext.current)
     val startAnimation = remember { mutableStateOf(false) }
     val alphaAnim = animateFloatAsState(
         targetValue = if (startAnimation.value) 1f else 0f,
@@ -33,10 +35,15 @@ fun SplashScreen(navController: NavHostController) {
 
     LaunchedEffect(Unit) {
         startAnimation.value = true
-        delay(timeMillis = 4000)
-        navController.navigate("AuthenticationScreen") {
-            popUpTo("SplashScreen") { inclusive = true }
-        }
+        delay(4000)
+        if (!tokenManager.getToken().isNullOrEmpty()) {
+            navController.navigate(Routes.HOME_SCREEN) {
+                popUpTo(Routes.SPLASH_SCREEN) { inclusive = true }
+            }
+        } else
+            navController.navigate(Routes.AUTHENTICATION_SCREEN) {
+                popUpTo(Routes.SPLASH_SCREEN) { inclusive = true }
+            }
     }
     SplashScreenAnimation(alphaAnim = alphaAnim.value)
 }
@@ -58,11 +65,4 @@ fun SplashScreenAnimation(alphaAnim: Float) {
             tint = MaterialTheme.colorScheme.primary
         )
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SplashScreenPreview() {
-    val navController = rememberNavController()
-    SplashScreen(navController = navController)
 }

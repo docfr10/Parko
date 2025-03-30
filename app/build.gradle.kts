@@ -60,12 +60,13 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui.text.google.fonts)
 
-    implementation ("io.ktor:ktor-client-core:2.3.0")
-    implementation ("io.ktor:ktor-client-android:2.3.0")
-    implementation ("io.ktor:ktor-client-content-negotiation:2.3.0")
-    implementation ("io.ktor:ktor-serialization-kotlinx-json:2.3.0")
-    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
+    implementation("io.ktor:ktor-client-core:2.3.0")
+    implementation("io.ktor:ktor-client-android:2.3.0")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.0")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

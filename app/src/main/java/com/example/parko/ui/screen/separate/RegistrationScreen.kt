@@ -38,6 +38,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.parko.model.requests.UserRequest
+import com.example.parko.utils.Routes
 import com.example.parko.viewmodel.AuthenticationViewModel
 import kotlinx.coroutines.launch
 
@@ -63,8 +64,8 @@ fun RegistrationScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconButton(onClick = {
-                    navController.navigate("AuthenticationScreen") {
-                        popUpTo("AuthenticationScreen") { inclusive = true }
+                    navController.navigate(Routes.AUTHENTICATION_SCREEN) {
+                        popUpTo(Routes.AUTHENTICATION_SCREEN) { inclusive = true }
                     }
                 }) {
                     Icon(
@@ -190,8 +191,8 @@ fun RegistrationScreen(
                                     lastName = lastName.value
                                 )
                             ).success
-                        ) navController.navigate("AuthenticationScreen") {
-                            popUpTo("RegistrationScreen") { inclusive = true }
+                        ) navController.navigate(Routes.AUTHENTICATION_SCREEN) {
+                            popUpTo(Routes.REGISTRATION_SCREEN) { inclusive = true }
                         }
                     }
                 },
