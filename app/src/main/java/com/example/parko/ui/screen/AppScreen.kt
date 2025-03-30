@@ -114,7 +114,7 @@ fun AppScreen(authenticationViewModel: AuthenticationViewModel) {
                     HomeScreen()
                 }
                 composable(route = Routes.PROFILE_SCREEN) {
-                    ProfileScreen()
+                    ProfileScreen(navController = navController)
                 }
                 composable(route = Routes.NOTIFICATION_SCREEN) {
                     NotificationScreen()
