@@ -34,21 +34,27 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.parko.model.requests.UserRequest
+import com.example.parko.viewmodel.AuthenticationViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RegistrationScreen(navController: NavHostController) {
+fun RegistrationScreen(
+    navController: NavHostController,
+    authenticationViewModel: AuthenticationViewModel
+) {
     val coroutineScope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
     val bringIntoViewRequester = BringIntoViewRequester()
 
     val email = rememberSaveable { mutableStateOf("") }
     val password = rememberSaveable { mutableStateOf("") }
-    val name = rememberSaveable { mutableStateOf("") }
-    val surname = rememberSaveable { mutableStateOf("") }
+    val firstName = rememberSaveable { mutableStateOf("") }
+    val lastName = rememberSaveable { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -125,29 +131,10 @@ fun RegistrationScreen(navController: NavHostController) {
                     imeAction = ImeAction.Next
                 )
             )
-            // OutlinedTextField to type the surname
+            // OutlinedTextField to type the first name
             OutlinedTextField(
-                value = surname.value,
-                onValueChange = { surname.value = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 5.dp, end = 5.dp)
-                    .background(MaterialTheme.colorScheme.background)
-                    .onFocusEvent {
-                        if (it.isFocused)
-                            coroutineScope.launch { bringIntoViewRequester.bringIntoView() }
-                    },
-                label = { Text(text = "Surname") },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next
-                )
-            )
-            // OutlinedTextField to type the name
-            OutlinedTextField(
-                value = name.value,
-                onValueChange = { name.value = it },
+                value = firstName.value,
+                onValueChange = { firstName.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 5.dp, end = 5.dp)
@@ -164,6 +151,25 @@ fun RegistrationScreen(navController: NavHostController) {
                     imeAction = ImeAction.Done
                 )
             )
+            // OutlinedTextField to type the last name
+            OutlinedTextField(
+                value = lastName.value,
+                onValueChange = { lastName.value = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 5.dp, end = 5.dp)
+                    .background(MaterialTheme.colorScheme.background)
+                    .onFocusEvent {
+                        if (it.isFocused)
+                            coroutineScope.launch { bringIntoViewRequester.bringIntoView() }
+                    },
+                label = { Text(text = "Surname") },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            )
         }
         Column(
             modifier = Modifier
@@ -174,7 +180,21 @@ fun RegistrationScreen(navController: NavHostController) {
         ) {
             // Confirm button
             Button(
-                onClick = {},
+                onClick = {
+                    coroutineScope.launch {
+                        if (authenticationViewModel.signUp(
+                                UserRequest(
+                                    email = email.value,
+                                    password = password.value,
+                                    firstName = firstName.value,
+                                    lastName = lastName.value
+                                )
+                            ).success
+                        ) navController.navigate("AuthenticationScreen") {
+                            popUpTo("RegistrationScreen") { inclusive = true }
+                        }
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(),
                 shape = MaterialTheme.shapes.extraLarge
             ) {
@@ -188,5 +208,10 @@ fun RegistrationScreen(navController: NavHostController) {
 @Composable
 fun RegistrationScreenPreview() {
     val navController = rememberNavController()
-    RegistrationScreen(navController = navController)
+    val authenticationViewModel: AuthenticationViewModel = viewModel()
+
+    RegistrationScreen(
+        navController = navController,
+        authenticationViewModel = authenticationViewModel
+    )
 }

@@ -29,11 +29,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.parko.ParkingViewModel
 import com.example.parko.R
 
 @Composable
 @Preview(showBackground = true)
-fun HomeScreen(search: MutableState<String> = rememberSaveable { mutableStateOf(value = "") }) {
+fun HomeScreen(
+    search: MutableState<String> = rememberSaveable { mutableStateOf(value = "") },
+    viewModel: ParkingViewModel = viewModel()
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
@@ -80,7 +85,7 @@ fun HomeScreen(search: MutableState<String> = rememberSaveable { mutableStateOf(
                 .wrapContentHeight(),
             verticalArrangement = Arrangement.spacedBy(space = 8.dp)
         ) {
-            items(count = 20) {
+            items(viewModel.parks.value) {
                 Card {
                     Column(
                         modifier = Modifier
@@ -107,9 +112,9 @@ fun HomeScreen(search: MutableState<String> = rememberSaveable { mutableStateOf(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(text = "Parking name")
+                            Text(text = it.name)
 
-                            Text(text = "Price")
+                            Text(text = it.description)
                         }
                     }
                 }

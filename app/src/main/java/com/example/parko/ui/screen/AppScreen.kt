@@ -20,7 +20,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -35,11 +34,11 @@ import com.example.parko.ui.screen.separate.AuthenticationScreen
 import com.example.parko.ui.screen.separate.RegistrationScreen
 import com.example.parko.ui.screen.separate.SplashScreen
 import com.example.parko.utils.Routes
+import com.example.parko.viewmodel.AuthenticationViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview(showBackground = true)
-fun AppScreen() {
+fun AppScreen(authenticationViewModel: AuthenticationViewModel) {
     val navController: NavHostController = rememberNavController()
     val navBackStackEntry = navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry.value?.destination?.route
@@ -47,53 +46,45 @@ fun AppScreen() {
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .padding(all = 16.dp),
-        topBar = {
+            .padding(all = 16.dp), topBar = {
             if (currentRoute !in listOf(
-                    "SplashScreen",
-                    "AuthenticationScreen",
-                    "RegistrationScreen"
+                    "SplashScreen", "AuthenticationScreen", "RegistrationScreen"
                 )
-            )
-                TopAppBar(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = TopAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.background,
-                        scrolledContainerColor = MaterialTheme.colorScheme.background,
-                        actionIconContentColor = MaterialTheme.colorScheme.onBackground,
-                        navigationIconContentColor = MaterialTheme.colorScheme.onBackground,
-                        titleContentColor = MaterialTheme.colorScheme.onBackground,
-                    ),
-                    title = {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .wrapContentHeight(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            IconButton(onClick = { navController.navigate(route = "ProfileScreen") }) {
-                                Image(
-                                    imageVector = Icons.Default.Person,
-                                    contentDescription = "User photo"
-                                )
-                            }
+            ) TopAppBar(
+                modifier = Modifier.fillMaxWidth(), colors = TopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    scrolledContainerColor = MaterialTheme.colorScheme.background,
+                    actionIconContentColor = MaterialTheme.colorScheme.onBackground,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onBackground,
+                    titleContentColor = MaterialTheme.colorScheme.onBackground,
+                ), title = {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        IconButton(onClick = { navController.navigate(route = "ProfileScreen") }) {
+                            Image(
+                                imageVector = Icons.Default.Person,
+                                contentDescription = "User photo"
+                            )
+                        }
 
-                            Column {
-                                Text(text = "Hello USERNAME!")
-                                Text(text = "Park Your Car")
-                            }
+                        Column {
+                            Text(text = "Hello USERNAME!")
+                            Text(text = "Park Your Car")
+                        }
 
-                            IconButton(onClick = { navController.navigate(route = "NotificationScreen") }) {
-                                Image(
-                                    imageVector = Icons.Default.Notifications,
-                                    contentDescription = "Notifications"
-                                )
-                            }
+                        IconButton(onClick = { navController.navigate(route = "NotificationScreen") }) {
+                            Image(
+                                imageVector = Icons.Default.Notifications,
+                                contentDescription = "Notifications"
+                            )
                         }
                     }
-                )
-        }
-    ) { paddingValues ->
+                })
+        }) { paddingValues ->
         NavHost(
             modifier = Modifier.padding(paddingValues = paddingValues),
             navController = navController,
@@ -104,10 +95,16 @@ fun AppScreen() {
                     SplashScreen(navController = navController)
                 }
                 composable(route = Routes.AUTHENTICATION_SCREEN) {
-                    AuthenticationScreen(navController = navController)
+                    AuthenticationScreen(
+                        authenticationViewModel = authenticationViewModel,
+                        navController = navController
+                    )
                 }
                 composable(route = Routes.REGISTRATION_SCREEN) {
-                    RegistrationScreen(navController = navController)
+                    RegistrationScreen(
+                        authenticationViewModel = authenticationViewModel,
+                        navController = navController
+                    )
                 }
             }
             navigation(startDestination = Routes.HOME_SCREEN, route = Routes.APP_SCREENS) {

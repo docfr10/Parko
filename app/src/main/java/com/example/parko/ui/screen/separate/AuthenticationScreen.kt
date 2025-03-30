@@ -31,13 +31,19 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.parko.model.requests.LoginRequest
+import com.example.parko.viewmodel.AuthenticationViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AuthenticationScreen(navController: NavHostController) {
+fun AuthenticationScreen(
+    navController: NavHostController,
+    authenticationViewModel: AuthenticationViewModel
+) {
     val coroutineScope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
     val bringIntoViewRequester = BringIntoViewRequester()
@@ -108,7 +114,20 @@ fun AuthenticationScreen(navController: NavHostController) {
         )
         // SignIn button
         Button(
-            onClick = { },
+            onClick = {
+                coroutineScope.launch {
+                    if (authenticationViewModel.logIn(
+                            LoginRequest(
+                                email = email.value,
+                                password = password.value,
+                                isActivate = true
+                            )
+                        ).success
+                    ) navController.navigate("HomeScreen") {
+                        popUpTo("AuthenticationScreen") { inclusive = true }
+                    }
+                }
+            },
             modifier = Modifier
                 .padding(top = 10.dp, start = 5.dp, end = 5.dp)
                 .fillMaxWidth()
@@ -135,5 +154,10 @@ fun AuthenticationScreen(navController: NavHostController) {
 @Composable
 fun AuthenticationScreenPreview() {
     val navController = rememberNavController()
-    AuthenticationScreen(navController = navController)
+    val authenticationViewModel: AuthenticationViewModel = viewModel()
+
+    AuthenticationScreen(
+        navController = navController,
+        authenticationViewModel = authenticationViewModel
+    )
 }
