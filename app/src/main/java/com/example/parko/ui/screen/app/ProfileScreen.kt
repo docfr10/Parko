@@ -20,9 +20,7 @@ import com.example.parko.utils.Routes
 import com.example.parko.utils.TokenManager
 
 @Composable
-fun ProfileScreen(navController: NavHostController) {
-    val tokenManager = TokenManager(LocalContext.current)
-
+fun ProfileScreen(navController: NavHostController, tokenManager: TokenManager) {
     Column(modifier = Modifier.fillMaxSize()) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(text = "This is profile screen")
@@ -46,6 +44,7 @@ fun ProfileScreen(navController: NavHostController) {
 @Composable
 fun ProfileScreenPreview() {
     val navController = rememberNavController()
+    val tokenManager = TokenManager(LocalContext.current)
 
-    ProfileScreen(navController = navController)
+    ProfileScreen(navController = navController, tokenManager = tokenManager)
 }

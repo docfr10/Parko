@@ -6,7 +6,6 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 
 class TokenManager(context: Context) {
-
     companion object {
         private const val PREFS_FILENAME = "auth_prefs"
         private const val KEY_TOKEN = "jwt_token"

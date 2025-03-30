@@ -34,11 +34,17 @@ import com.example.parko.ui.screen.separate.AuthenticationScreen
 import com.example.parko.ui.screen.separate.RegistrationScreen
 import com.example.parko.ui.screen.separate.SplashScreen
 import com.example.parko.utils.Routes
+import com.example.parko.utils.TokenManager
 import com.example.parko.viewmodel.AuthenticationViewModel
+import com.example.parko.viewmodel.ParkingViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppScreen(authenticationViewModel: AuthenticationViewModel) {
+fun AppScreen(
+    authenticationViewModel: AuthenticationViewModel,
+    parkingViewModel: ParkingViewModel,
+    tokenManager: TokenManager
+) {
     val navController: NavHostController = rememberNavController()
     val navBackStackEntry = navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry.value?.destination?.route
@@ -111,10 +117,11 @@ fun AppScreen(authenticationViewModel: AuthenticationViewModel) {
             }
             navigation(startDestination = Routes.HOME_SCREEN, route = Routes.APP_SCREENS) {
                 composable(route = Routes.HOME_SCREEN) {
-                    HomeScreen()
+                    parkingViewModel.fetchParks(tokenManager = tokenManager)
+                    HomeScreen(parkingViewModel = parkingViewModel)
                 }
                 composable(route = Routes.PROFILE_SCREEN) {
-                    ProfileScreen(navController = navController)
+                    ProfileScreen(navController = navController, tokenManager = tokenManager)
                 }
                 composable(route = Routes.NOTIFICATION_SCREEN) {
                     NotificationScreen()
