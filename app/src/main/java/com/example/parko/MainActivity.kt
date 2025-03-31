@@ -22,8 +22,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
+        enableEdgeToEdge()
         setContent {
             ParkoTheme {
                 Surface(
@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     AppScreen(
                         authenticationViewModel = authenticationViewModel,
                         parkingViewModel = parkingViewModel,
-                        tokenManager = TokenManager(LocalContext.current)
+                        tokenManager = TokenManager(context = LocalContext.current)
                     )
                 }
             }

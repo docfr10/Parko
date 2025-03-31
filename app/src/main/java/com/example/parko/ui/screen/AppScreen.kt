@@ -100,11 +100,12 @@ fun AppScreen(
         ) {
             navigation(startDestination = Routes.SPLASH_SCREEN, route = Routes.SEPARATED_SCREENS) {
                 composable(route = Routes.SPLASH_SCREEN) {
-                    SplashScreen(navController = navController)
+                    SplashScreen(navController = navController, tokenManager = tokenManager)
                 }
                 composable(route = Routes.AUTHENTICATION_SCREEN) {
                     AuthenticationScreen(
                         authenticationViewModel = authenticationViewModel,
+                        tokenManager = tokenManager,
                         navController = navController
                     )
                 }
@@ -117,7 +118,7 @@ fun AppScreen(
             }
             navigation(startDestination = Routes.HOME_SCREEN, route = Routes.APP_SCREENS) {
                 composable(route = Routes.HOME_SCREEN) {
-                    parkingViewModel.fetchParks(tokenManager = tokenManager)
+                    parkingViewModel.getAllParks(tokenManager = tokenManager)
                     HomeScreen(parkingViewModel = parkingViewModel)
                 }
                 composable(route = Routes.PROFILE_SCREEN) {

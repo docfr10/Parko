@@ -25,6 +25,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -36,6 +37,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.parko.model.requests.LoginRequest
 import com.example.parko.utils.Routes
+import com.example.parko.utils.TokenManager
 import com.example.parko.viewmodel.AuthenticationViewModel
 import kotlinx.coroutines.launch
 
@@ -43,7 +45,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun AuthenticationScreen(
     navController: NavHostController,
-    authenticationViewModel: AuthenticationViewModel
+    authenticationViewModel: AuthenticationViewModel,
+    tokenManager: TokenManager
 ) {
     val coroutineScope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
@@ -118,7 +121,8 @@ fun AuthenticationScreen(
             onClick = {
                 coroutineScope.launch {
                     if (authenticationViewModel.logIn(
-                            LoginRequest(
+                            tokenManager = tokenManager,
+                            loginRequest = LoginRequest(
                                 email = email.value,
                                 password = password.value,
                                 isActivate = true
@@ -156,9 +160,11 @@ fun AuthenticationScreen(
 fun AuthenticationScreenPreview() {
     val navController = rememberNavController()
     val authenticationViewModel: AuthenticationViewModel = viewModel()
+    val tokenManager = TokenManager(context = LocalContext.current)
 
     AuthenticationScreen(
         navController = navController,
-        authenticationViewModel = authenticationViewModel
+        authenticationViewModel = authenticationViewModel,
+        tokenManager = tokenManager
     )
 }
